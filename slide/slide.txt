@@ -1,0 +1,96 @@
+1. title
+2. introduction, who you are
+   - name
+   - university
+   - working experience in past 5 years
+3. welcome to cloud era
+   - why cloud ?
+   - startup choose cloud ?
+4. what is IaaC
+   - manage infra as a code
+   - easy to inventory
+   - easy to manage
+   - have a lot of time for playing Mobile Legend
+5. why we need IaaC
+6. choosing terraform
+7. what is terraform
+8. terraform is easy to use
+9. preparation for demo
+   tools:
+   - aws account
+     - secret key
+     - access key
+   - aws cli installed
+   - terraform 10 =<
+   - boto
+   - ansible
+   - ansible dynamic inventory ec2.py
+
+   start:
+   - $ aws configure or
+        Next, set up credentials (in e.g. ~/.aws/credentials):
+
+	[default]
+	aws_access_key_id = YOUR_KEY
+	aws_secret_access_key = YOUR_SECRET
+
+	Then, set up a default region (in e.g. ~/.aws/config):
+
+	[default]
+	region=us-east-1
+
+10. demo aws console, for build vpc
+   - what is VPC ?
+   - short explanation how to buid VPC
+   - load module : terraform init
+     - download aws cli plugins
+   - terraform plan
+   - terraform apply
+   - what is state file?
+     - terraform state list
+   code explanation in terraform:
+   - providers ? [ aws | gcp | digitalocean | azure ]
+     Providers are responsible in Terraform for managing the lifecycle of a resource: create, read, update, delete.
+
+Most providers require some sort of configuration to provide authentication information, endpoint URLs, etc. Where explicit configuration is required, a provider block is used within the configuration as illustrated in the following sections.
+   - resource ? Resources are a component of your infrastructure
+   - data ? Data sources allow data to be fetched or computed for use elsewhere in Terraform configuration. Use of data sources allows a Terraform configuration to build on information defined outside of Terraform, or defined by another separate Terraform configuration.
+
+Providers are responsible in Terraform for defining and implementing data sources. Whereas a resource causes Terraform to create and manage a new infrastructure component, data sources present read-only views into pre-existing data, or they compute new values on the fly within Terraform itself.
+
+   - define region is mandatory [ aws ]
+11. demo terraform, for build webserver
+   - load module : terraform init
+     Initializing modules...
+	- module.ami
+	- module.vpc
+	- module.ec2_instance
+	- module.route53
+	- module.security_group
+	- module.security_group_rules
+     Initializing provider plugins...
+	- Checking for available provider plugins on https://releases.hashicorp.com...
+	- Downloading plugin for provider "aws" (1.11.0)...
+   - main.tf main.tfvars variables.tf modules
+   - terraform plan -var-file=main.tfvars
+   - terraform apply -var-file=main.tfvars
+   code explanation in terraform:
+   - module
+12. demo ansible as orchestration service
+   - install dynamic inventory 
+     - ec2.ini | ec2.py | ansible.cfg
+   - playbook with dynamic inventory
+     - ./ec2.py --list
+     - hosts: tag_Application_Webserver
+     - ansible-playbook webserver.yml --verbose 
+13. demo destroying the infrastructure
+   - terraform destroy webserver
+   - terraform destroy vpc
+13. Q&A (15 minutes)
+   Kindly Read The Fucking Manual before you Ask!!!
+   - reference:
+   https://aws.amazon.com/documentation/
+   https://github.com/boto/boto3
+   https://www.terraform.io/docs/
+   http://docs.ansible.com/ansible/latest/index.html
+   http://www.tothenew.com/blog/how-to-use-dynamic-inventory-for-aws-with-ansible/

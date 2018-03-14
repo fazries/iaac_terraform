@@ -1,0 +1,26 @@
+terraform
+1. aws cli configure, get access key and secret key from aws demo account < done
+2. create keypair for demo purposes [demo-key] < done
+3. put keypair.pem to be configure with ansible < done ???
+4. backup existing aws credential and set aws demo key as a [default] credential < done
+5. testing terraform demo, create vpc and create webserver machines < done
+
+issue:
+VPC creation
+1. GondrongIdolaque user doesnt have permission for route53 < creation | list > not authorized < done
+2. cannot create a more specific route for 10.0.1.0/24 than CIDR 10.0.0.0/16 associated with the VPC, need to review the code
+   fix by create route table 0.0.0.0/0 via igw and create subnet association into igw < done
+3. issue with VPC module < done
+   instance_tenancy = "dedicated"
+   this make t2 instance type cannot be installed, because only support m4 type on dedicated server per account, replace it into 
+   instance_tenancy = "default"
+   https://forums.aws.amazon.com/thread.jspa?threadID=231301
+   https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-instance.html
+   https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-instance.html#change-tenancy-vpc
+
+4. rerun vpc creation and webserver creation ????
+
+ansible
+6. move /etc/ansible.bak into /etc/ansible < done
+7. test ansible dynamic inventory using ec2.py list
+8. demo ansible playbook to install apache on webserver machines
